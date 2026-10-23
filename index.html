@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ApplyWise internship and career planning dashboard">
+  <title>ApplyWise | Internship Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="#" class="brand">Apply<span>Wise.</span></a>
+    <p class="side-label">WORKSPACE</p>
+    <nav>
+      <a href="#dashboard" class="nav-link active">▦ Dashboard</a>
+      <a href="#applications" class="nav-link">▤ Applications</a>
+      <a href="#analyzer" class="nav-link">⌕ Skill Analyzer</a>
+      <a href="#roadmap" class="nav-link">◎ Learning Roadmap</a>
+    </nav>
+    <div class="sidebar-note">
+      <div class="note-icon">✦</div>
+      <h3>Your next opportunity starts here.</h3>
+      <p>Track applications. Build skills. Keep moving forward.</p>
+    </div>
+    <p class="side-footer">Made for ambitious students ✦</p>
+  </aside>
+
+  <main class="main-content" id="dashboard">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">YOUR CAREER WORKSPACE</p>
+        <h1>Internship Dashboard</h1>
+        <p class="muted">One step closer to your next opportunity.</p>
+      </div>
+      <button class="primary-btn" id="addTopBtn">+ Add Internship</button>
+    </header>
+
+    <section class="welcome-banner">
+      <div>
+        <span class="welcome-tag">YOUR JOURNEY, YOUR PACE</span>
+        <h2>Small steps. Real progress.</h2>
+        <p>Keep your applications organized and your skills growing.</p>
+      </div>
+      <div class="banner-symbol">✦</div>
+    </section>
+
+    <section class="stats-grid" aria-label="Application statistics">
+      <article class="stat-card">
+        <span class="stat-icon purple">▤</span>
+        <p>Total Applications</p>
+        <h2 id="totalCount">0</h2>
+        <span class="stat-foot">All tracked opportunities</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon blue">◷</span>
+        <p>Interviews</p>
+        <h2 id="interviewCount">0</h2>
+        <span class="stat-foot">Interview stage</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon green">✧</span>
+        <p>Offers</p>
+        <h2 id="offerCount">0</h2>
+        <span class="stat-foot">Offers received</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon orange">◉</span>
+        <p>Learning Progress</p>
+        <h2 id="learningPercent">0%</h2>
+        <span class="stat-foot">Roadmap completed</span>
+      </article>
+    </section>
+
+    <section class="panel" id="applications">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">STAY ORGANIZED</p>
+          <h2>Your Applications</h2>
+        </div>
+        <button class="secondary-btn" id="addSectionBtn">+ New application</button>
+      </div>
+
+      <div class="filters">
+        <input id="searchInput" type="search" placeholder="Search company or role..." aria-label="Search applications">
+        <select id="statusFilter" aria-label="Filter by status">
+          <option value="All">All statuses</option>
+          <option value="Applied">Applied</option>
+          <option value="Interview">Interview</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>COMPANY / ROLE</th>
+              <th>DEADLINE</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="applicationList"></tbody>
+        </table>
+      </div>
+      <p id="applicationMessage" class="empty-message">No applications yet. Add your first opportunity!</p>
+    </section>
+
+    <section class="two-column">
+      <article class="panel" id="analyzer">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">WORK SMARTER</p>
+            <h2>Skill Match Analyzer</h2>
+          </div>
+          <span class="heading-symbol">⌕</span>
+        </div>
+        <p class="muted">Compare your skills with a job description using keyword matching.</p>
+
+        <label for="mySkills">Your skills (comma-separated)</label>
+        <textarea id="mySkills" rows="3" placeholder="JavaScript, HTML, CSS, React, Git"></textarea>
+
+        <label for="jobDescription">Paste job description</label>
+        <textarea id="jobDescription" rows="5" placeholder="We are looking for a frontend intern with JavaScript, React, HTML, CSS and Git skills..."></textarea>
+
+        <button class="primary-btn full-btn" id="analyzeBtn">Analyze Skill Match →</button>
+
+        <div id="analysisResult" class="analysis-result" hidden aria-live="polite"></div>
+      </article>
+
+      <article class="panel" id="roadmap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">KEEP IMPROVING</p>
+            <h2>Learning Roadmap</h2>
+          </div>
+          <span class="heading-symbol">◎</span>
+        </div>
+        <p class="muted">Check off topics as you practice them.</p>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-label" id="progressLabel">0 of 0 completed</p>
+        <div id="roadmapList" class="roadmap-list"></div>
+        <form id="roadmapForm" class="inline-form">
+          <input id="newTopic" type="text" placeholder="Add a learning topic..." maxlength="100" required>
+          <button type="submit" class="secondary-btn">Add</button>
+        </form>
+      </article>
+    </section>
+
+    <footer>
+      <p>ApplyWise © <span id="currentYear"></span> · Your career journey, organized.</p>
+      <p>Data is saved in this browser.</p>
+    </footer>
+  </main>
+
+  <dialog id="internshipDialog">
+    <form id="internshipForm" class="dialog-form">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">APPLICATION DETAILS</p>
+          <h2 id="dialogTitle">Add Internship</h2>
+        </div>
+        <button type="button" class="close-btn" id="closeDialogBtn" aria-label="Close dialog">×</button>
+      </div>
+
+      <input type="hidden" id="editId">
+
+      <label for="company">Company name *</label>
+      <input id="company" type="text" maxlength="100" placeholder="e.g. Example Technologies" required>
+
+      <label for="role">Job role *</label>
+      <input id="role" type="text" maxlength="100" placeholder="e.g. Frontend Intern" required>
+
+      <label for="deadline">Application deadline</label>
+      <input id="deadline" type="date">
+
+      <label for="applicationStatus">Application status</label>
+      <select id="applicationStatus">
+        <option value="Applied">Applied</option>
+        <option value="Interview">Interview</option>
+        <option value="Offer">Offer</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+
+      <label for="jobLink">Job link (optional)</label>
+      <input id="jobLink" type="url" placeholder="https://example.com/jobs">
+
+      <div class="dialog-actions">
+        <button type="button" class="secondary-btn" id="cancelBtn">Cancel</button>
+        <button type="submit" class="primary-btn">Save Application</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
